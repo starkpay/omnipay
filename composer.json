@@ -1,5 +1,5 @@
 {
-    "name": "stark/omnipay",
+    "name": "starkpay/omnipay",
     "type": "library",
     "description": "Stark driver for the Omnipay payment processing library",
     "keywords": [
