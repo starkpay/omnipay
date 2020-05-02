@@ -10,7 +10,7 @@ processing library for PHP. This package implements Stark support for Omnipay so
 Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply require `league/omnipay` and `omnipay/stark` with Composer:
 
 ```
-composer require league/omnipay omnipay/stark
+composer require league/omnipay starkpay/omnipay
 ```
 
 
