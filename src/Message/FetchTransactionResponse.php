@@ -53,7 +53,7 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
      */
     public function isOpen()
     {
-        return isset($this->data['status']) && 'open' === $this->data['status'];
+        return isset($this->data['status']) && 'processing' === $this->data['status'];
     }
 
     /**
@@ -61,41 +61,7 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
      */
     public function isCancelled()
     {
-        return isset($this->data['status']) && 'cancelled' === $this->data['status'];
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isPaid()
-    {
-        return isset($this->data['status']) && 'paid' === $this->data['status'];
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isPaidOut()
-    {
-        return isset($this->data['status']) && 'paidout' === $this->data['status'];
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isExpired()
-    {
-        return isset($this->data['status']) && 'expired' === $this->data['status'];
-    }
-
-    public function isRefunded()
-    {
-        return isset($this->data['status']) && 'refunded' === $this->data['status'];
-    }
-
-    public function isPartialRefunded()
-    {
-        return $this->isRefunded() && isset($this->data['amountRemaining']) && $this->data['amountRemaining'] > 0;
+        return isset($this->data['status']) && 'failed' === $this->data['status'];
     }
 
     /**
@@ -113,8 +79,8 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
      */
     public function getTransactionId()
     {
-        if (isset($this->data['metadata']['transactionId'])) {
-            return $this->data['metadata']['transactionId'];
+        if (isset($this->data['id'])) {
+            return $this->data['id'];
         }
     }
 

@@ -45,7 +45,7 @@ if ($response->isSuccessful()) {
     print_r($response);
 
 } elseif ($response->isRedirect()) {
-
+    // You can get Transaction id by  $response->getTransactionId();
     // Redirect to offsite payment gateway
     $response->redirect();
 
@@ -56,6 +56,61 @@ if ($response->isSuccessful()) {
 }
 ```
 
+##### Response Page
+
+We will post the transaction `id` & the `status` to your `returnUrl` during purchase. Once the transaction is completed you will get a [webhook](https://en.wikipedia.org/wiki/Webhook) notification which is configured in dashboard.starkpayments.net
+
+Example Return Page : return-page.php
+```php
+echo "Your transaction id is : " . $_POST['id'] ." and status is : ".$_POST['status'];
+```
+
+
+#### Fetch Transaction Details
+
+Fetch Transaction details using transaction id
+
+```php
+$gateway = Omnipay::create('Stark');
+
+$gateway->setApiKey('key_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM');
+
+// Send purchase request
+$response = $gateway->fetchTransaction([
+    'transactionReference' => '5eb165796a7b7'
+])->send();
+
+// Process response
+if ($response->isSuccessful()) {
+    // Transaction Details
+    print_r($response->getMetaData());
+    /*
+    Sample Response
+    Array
+    (
+        [id] => 5eb165796a7b7
+        [amount] => 15.00
+        [currency] => USD
+        [cypto_amount] => 0.001694
+        [crypto] => BTC
+        [status] => success
+        [customer_name] => John Doe
+        [customer_email] => john.doe@mail.com
+    )
+     */
+} else {
+    // Get Error Message
+    echo $response->getMessage();
+}
+```
+
+#### Payment Status Details
+
+Status | Description
+--- | ---  
+processing | Payment is under processing
+success | Successfully verified the crypto payment
+failed | Payment failed or Cancelled by the customer
 
 ## Support
 

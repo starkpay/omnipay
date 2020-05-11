@@ -21,7 +21,7 @@ class FetchTransactionRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        $response = $this->sendRequest('GET', '/payments/' . $data['id']);
+        $response = $this->sendRequest('GET', '/transaction/' . $data['id']);
 
         return $this->response = new FetchTransactionResponse($this, $response);
     }
