@@ -38,6 +38,16 @@ class PurchaseRequest extends AbstractRequest
         return $this->setParameter('billingEmail', $value);
     }
 
+    public function setPayload($value)
+    {
+        return $this->setParameter('payload', $value);
+    }
+
+    public function getPayload()
+    {
+        return $this->getParameter('payload');
+    }
+
     public function getData()
     {
         $this->validate('apiKey', 'amount', 'currency','description', 'returnUrl');
@@ -49,6 +59,7 @@ class PurchaseRequest extends AbstractRequest
         $data['redirectUrl'] = $this->getReturnUrl();
         $data['method']      = $this->getPaymentMethod();
         $data['metadata']    = $this->getMetadata();
+        $data['payload']     = $this->getPayload();
 
         if ($this->getTransactionId()) {
             $data['metadata']['transactionId'] = $this->getTransactionId();
