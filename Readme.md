@@ -23,7 +23,7 @@ repository.
 
 ### Basic purchase example
 
-API key will be avilable in your Stark Merchant Console. Visit : (https://dashboard.starkpayments.net/)
+API key will be available in your Stark Merchant Console. Visit : (https://dashboard.starkpayments.net/)
 
 ```php
 $gateway = \Omnipay\Omnipay::create('Stark');  
