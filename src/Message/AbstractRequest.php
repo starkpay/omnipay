@@ -4,7 +4,7 @@ namespace Omnipay\Stark\Message;
 
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
-    protected $endpoint = 'https://pay.starkpayments.net/api';
+    protected $endpoint = 'https://api.starkpayments.net/merchant';
 
     public function getApiKey()
     {
@@ -33,6 +33,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
             $this->endpoint . $endpoint,
             array(
                 'Authorization' => 'Bearer ' . $this->getApiKey(),
+                'content-type'  => 'application/json'
             ),
             json_encode($data)
         );

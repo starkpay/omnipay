@@ -48,6 +48,11 @@ class PurchaseRequest extends AbstractRequest
         return $this->getParameter('payload');
     }
 
+    public function getCustomer()
+    {
+        return $this->getParameter('customer');
+    }    
+
     public function getData()
     {
         $this->validate('apiKey', 'amount', 'currency','description', 'returnUrl');
@@ -80,6 +85,10 @@ class PurchaseRequest extends AbstractRequest
 
         if ($billingEmail = $this->getBillingEmail()) {
             $data['billingEmail'] = $billingEmail;
+        }
+
+        if (isset($data['metadata']['customer'])) {
+            $data['customer'] = $data['metadata']['customer'];
         }
 
         return $data;

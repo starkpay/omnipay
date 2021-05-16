@@ -113,4 +113,14 @@ class FetchTransactionResponse extends AbstractResponse implements RedirectRespo
             return $this->data['metadata'];
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMessage()
+    {
+        if (isset($this->data['errors']['message'])) {
+            return 'Fields : '. implode(',', $this->data['errors']['fields']) . '. ' .  $this->data['errors']['message'];
+        }
+    }
 }

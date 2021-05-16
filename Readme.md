@@ -56,6 +56,44 @@ if ($response->isSuccessful()) {
 }
 ```
 
+### Purchase example with Customer
+
+```php
+$gateway = \Omnipay\Omnipay::create('Stark');
+$gateway->setApiKey('key_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM');
+
+$response = $gateway->purchase(
+    [
+        "amount" => "10.00",
+        "currency" => "EUR",
+        "description" => "My first Payment",
+        "returnUrl" => "https://webshop.example.org/return-page.php",
+        'metadata' => array(
+            'customer' => array(
+                'name' => 'Customer Full name',
+                'email' => 'customeremail@email.com',
+                'verified' => true,
+            )
+        )
+    ]
+)->send();
+
+// Process response
+if ($response->isSuccessful()) {
+    // Payment was successful
+    print_r($response);
+
+} elseif ($response->isRedirect()) {
+    // You can get Transaction id by  $response->getTransactionId();
+    // Redirect to offsite payment gateway
+    $response->redirect();
+
+} else {
+    // Payment failed
+    echo $response->getMessage();
+}
+```
+
 ##### Response Page
 
 We will post the transaction `id` & the `status` to your `returnUrl` during purchase. Once the transaction is completed you will get a [webhook](https://en.wikipedia.org/wiki/Webhook) notification which is configured in dashboard.starkpayments.net
@@ -96,6 +134,7 @@ if ($response->isSuccessful()) {
         [status] => success
         [customer_name] => John Doe
         [customer_email] => john.doe@mail.com
+        [transaction_hash] => 76a3e766bf49b0e36ffcd8636cf546f8a4bf1908e176139fdc42e508ba38a7d7
     )
      */
 } else {
