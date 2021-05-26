@@ -129,7 +129,7 @@ if ($response->isSuccessful()) {
         [id] => 5eb165796a7b7
         [amount] => 15.00
         [currency] => USD
-        [cypto_amount] => 0.001694
+        [crypto_amount] => 0.001694
         [crypto] => BTC
         [status] => success
         [customer_name] => John Doe
